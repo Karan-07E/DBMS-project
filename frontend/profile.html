@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ShopEasy</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>ShopEasy</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="cart.html">Cart <span id="cart-count">0</span></a></li>
+                    <li><a href="profile.html" id="profile-link">My Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <h2>My Profile</h2>
+                <div id="profile-message"></div>
+                <div class="profile-info">
+                    <div class="profile-details">
+                        <h3>Account Information</h3>
+                        <p><strong>Name:</strong> <span id="profile-name"></span></p>
+                        <p><strong>Email:</strong> <span id="profile-email"></span></p>
+                        <p><strong>Member Since:</strong> <span id="profile-created"></span></p>
+                        <p><strong>Last Login:</strong> <span id="profile-last-login"></span></p>
+                    </div>
+                    <div class="profile-actions">
+                        <button id="logout-btn" class="btn">Logout</button>
+                    </div>
+                </div>
+                <div class="order-history">
+                    <h3>Order History</h3>
+                    <div id="order-history-list">
+                        <!-- Order history will be loaded here -->
+                    </div>
+                </div>
+                <div class="current-time">
+                    <p>Current time: <span id="current-time"></span></p>
+                    <p>Current user: <span id="current-user"></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ShopEasy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

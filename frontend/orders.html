@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-flex">
+                <div class="logo">
+                    <h1><a href="index.html">Shop</a></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart <span id="cart-count">0</span></a></li>
+                        <li class="auth-link" id="login-link"><a href="login.html">Login</a></li>
+                        <li class="auth-link" id="register-link"><a href="register.html">Register</a></li>
+                        <li class="user-link" id="profile-link" style="display:none"><a href="profile.html">Profile</a></li>
+                        <li class="user-link" id="orders-link" style="display:none"><a href="orders.html">My Orders</a></li>
+                        <li class="user-link" id="logout-link" style="display:none"><a href="#" id="logout-btn">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="orders">
+        <div class="container">
+            <h2>My Orders</h2>
+            <div id="orders-container">
+                <!-- Orders will be loaded here via JavaScript -->
+                <div class="loading">Loading your orders...</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/orders.js"></script>
+</body>
+</html>

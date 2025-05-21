@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-flex">
+                <div class="logo">
+                    <h1><a href="index.html">Shop</a></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart <span id="cart-count">0</span></a></li>
+                        <li class="auth-link" id="login-link"><a href="login.html">Login</a></li>
+                        <li class="auth-link" id="register-link"><a href="register.html">Register</a></li>
+                        <li class="user-link" id="profile-link" style="display:none"><a href="profile.html">Profile</a></li>
+                        <li class="user-link" id="orders-link" style="display:none"><a href="orders.html">My Orders</a></li>
+                        <li class="user-link" id="logout-link" style="display:none"><a href="#" id="logout-btn">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="order-confirmation">
+        <div class="container">
+            <h2>Order Confirmation</h2>
+            <div class="confirmation-message">
+                <p>Thank you for your order!</p>
+                <p>Your order has been placed successfully.</p>
+                <p>Order ID: <span id="order-id">Loading...</span></p>
+            </div>
+
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <div id="order-loading">Loading order details...</div>
+                <div id="order-error" style="display:none;">Could not load order details.</div>
+                
+                <div id="order-info" style="display:none;">
+                    <div class="order-customer-info">
+                        <h4>Customer Information</h4>
+                        <p><strong>Name:</strong> <span id="customer-name"></span></p>
+                        <p><strong>Email:</strong> <span id="customer-email"></span></p>
+                        <p><strong>Address:</strong> <span id="customer-address"></span></p>
+                    </div>
+                    
+                    <div class="order-items">
+                        <h4>Items</h4>
+                        <table id="order-items-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-items-body">
+                                <!-- Items will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <h4>Order Summary</h4>
+                        <p><strong>Total:</strong> <span id="order-total"></span></p>
+                        <p><strong>Date:</strong> <span id="order-date"></span></p>
+                        <p><strong>Status:</strong> <span id="order-status"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <a href="index.html" class="btn">Continue Shopping</a>
+                <a href="orders.html" class="btn">View All Orders</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/order-confirmation.js"></script>
+</body>
+</html>
