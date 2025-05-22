@@ -97,19 +97,11 @@ function setupCheckoutForm() {
             
             // Prepare order data
             const orderData = {
-                customer: {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    address: formData.get('address')
-                },
+                shippingAddress: formData.get('address'),
                 items: cartItems.map(item => ({
                     productId: item.id,
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity,
-                    image: item.image || 'images/placeholder.jpg'
-                })),
-                total: total
+                    quantity: item.quantity
+                }))
             };
             
             // Submit order
@@ -143,8 +135,21 @@ function submitOrder(orderData) {
         // Show success message
         alert('Order placed successfully! Thank you for your purchase.');
         
-        // Redirect to order confirmation or home page
-        window.location.href = 'order-confirmation.html?id=' + data._id;
+        // Handle different order response formats
+        let orderId = '';
+        if (data.order && data.order.id) {
+            orderId = data.order.id;
+        } else if (data.id) {
+            orderId = data.id;
+        } else if (data && typeof data === 'object') {
+            // Try to find an id field at any level
+            orderId = data.id || '';
+        }
+        
+        console.log('Order created with ID:', orderId);
+        
+        // Redirect to order confirmation page with the order ID
+        window.location.href = 'order-confirmation.html?id=' + orderId;
     })
     .catch(error => {
         console.error('Error:', error);

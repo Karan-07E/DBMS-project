@@ -1,73 +1,66 @@
-const mongoose = require('mongoose');
+// filepath: /Users/karan/Documents/ecom/backend/models/user.js
+const { DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { sequelize } = require('../config/database');
 
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6
-    },
-    lastLogin: {
-        type: Date
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+const User = sequelize.define('User', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
     }
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  lastLogin: {
+    type: DataTypes.DATE,
+    allowNull: true
+  }
+}, {
+  tableName: 'users',
+  timestamps: true,
+  hooks: {
+    beforeCreate: async (user) => {
+      if (user.password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+      }
+    },
+    beforeUpdate: async (user) => {
+      if (user.changed('password')) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+      }
+    }
+  }
 });
 
-// Hash the password before saving
-userSchema.pre('save', async function(next) {
-    const user = this;
-    
-    if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 10);
-    }
-    
-    next();
-});
-
-// Method to generate auth token
-userSchema.methods.generateAuthToken = function() {
-    const user = this;
-    const token = jwt.sign(
-        { _id: user._id.toString() },
-        process.env.JWT_SECRET || '5845aa83e869a60b359bde97c1c90a758c9cc067d40d2386614418d20558bfa2328b84a00d24924116ff46ef281bdca5f644ebb3f6080883daa86da812582e07',
-        { expiresIn: '7d' }
-    );
-    
-    return token;
+// Generate JWT token
+User.prototype.generateAuthToken = function() {
+  const token = jwt.sign(
+    { id: this.id, email: this.email },
+    process.env.JWT_SECRET,
+    { expiresIn: '30d' }
+  );
+  return token;
 };
 
-// Method to check if password is correct
-userSchema.methods.comparePassword = async function(password) {
-    const user = this;
-    return await bcrypt.compare(password, user.password);
+// Compare password
+User.prototype.comparePassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Remove sensitive data when sending user object
-userSchema.methods.toJSON = function() {
-    const user = this;
-    const userObject = user.toObject();
-    
-    delete userObject.password;
-    
-    return userObject;
-};
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = { User };
+module.exports = User;

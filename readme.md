@@ -1,6 +1,6 @@
 # E-commerce Website
 
-A simple e-commerce website built with HTML, CSS, JavaScript, Node.js, Express, and MongoDB Atlas.
+A simple e-commerce website built with HTML, CSS, JavaScript, Node.js, Express, and MySQL database backend.
 
 ## Features
 
@@ -9,40 +9,82 @@ A simple e-commerce website built with HTML, CSS, JavaScript, Node.js, Express, 
 - Shopping cart functionality
 - Secure checkout process
 - Order history
-- Time tracking and display
+- Request time logging and performance monitoring
+- MySQL database with Sequelize ORM support
 
 ## Prerequisites
 
 - Node.js (v14 or later)
-- MongoDB Atlas account
+- MySQL (v5.7 or later)
 
 ## Installation
 
-1. Clone the repository : git clone https://github.com/yourusername/ecommerce-website.git 
-    cd ecommerce-website
- 
-2. Install dependencies: npm install
+## Setup Instructions
 
-3. Configure MongoDB:
-- Create a MongoDB Atlas account
-- Set up a cluster and database
-- Update the connection string in `backend/db/conn.js`
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-4. Start the server: npm start
+2. Configure the database:
+   - Make sure MySQL is installed and running
+   - Update the `.env` file with your MySQL credentials if needed:
+     ```
+     DB_HOST=localhost
+     DB_USER=root
+     DB_PASSWORD=your_password
+     DB_NAME=ecom
+     DB_PORT=3306
+     ```
+
+3. Initialize and seed the database:
+   ```bash
+   # Create the database if it doesn't exist
+   npm run init-db
+   
+   # Seed the database with sample data
+   npm run seed
+   ```
+
+4. Start the server:
+   ```bash
+   npm start
+   ```
 
 5. Open in browser:
-- Navigate to `http://localhost:3000`
+   - Navigate to `http://localhost:3000`
+
+## Database Management
+
+This project uses Sequelize ORM for database operations.
+
+### Database Initialization
+
+To create the database:
+```bash
+npm run init-db
+```
+
+### Database Seeding
+
+To populate your database with sample data:
+```bash
+npm run seed
+```
 
 ## Development
 
-Run the development server with hot reloading: npm run dev
+Run the development server with hot reloading:
+```bash
+npm run dev
+```
 
 
 ## Project Structure
 
 - `frontend/` - HTML, CSS, and client-side JavaScript
 - `backend/` - Express server and API endpoints
-- `backend/models/` - MongoDB schema definitions
+- `backend/models/` - Sequelize model definitions
 - `backend/middleware/` - Express middleware
 
 ## License

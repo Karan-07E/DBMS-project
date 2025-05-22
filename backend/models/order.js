@@ -1,65 +1,75 @@
-const mongoose = require('mongoose');
+// filepath: /Users/karan/Documents/ecom/backend/models/order.js
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
+const User = require('./user');
 
-const orderItemSchema = new mongoose.Schema({
-    productId: {
-        type: String, // Changed from ObjectId to String to handle all ID formats
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true,
-        min: 1
-    },
-    image: {
-        type: String,
-        default: ''
+// Order Item model
+const OrderItem = sequelize.define('OrderItem', {
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  price: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
+  },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1
     }
+  },
+  image: {
+    type: DataTypes.STRING,
+    defaultValue: ''
+  }
+}, {
+  tableName: 'order_items',
+  timestamps: false
 });
 
-const orderSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    customer: {
-        name: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        address: {
-            type: String,
-            required: true
-        }
-    },
-    items: [orderItemSchema],
-    total: {
-        type: Number,
-        required: true
-    },
-    status: {
-        type: String,
-        enum: ['pending', 'processing', 'shipped', 'delivered'],
-        default: 'pending'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+// Order model
+const Order = sequelize.define('Order', {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  customerName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  customerEmail: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  customerAddress: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  totalPrice: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
+  },
+  status: {
+    type: DataTypes.ENUM('pending', 'processing', 'shipped', 'delivered'),
+    defaultValue: 'pending'
+  }
+}, {
+  tableName: 'orders',
+  timestamps: true
 });
 
-const Order = mongoose.model('Order', orderSchema);
+// Define associations
+Order.hasMany(OrderItem, { foreignKey: 'orderId', as: 'items' });
+OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
 
-module.exports = { Order };
+// Define association with User
+Order.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Order, { foreignKey: 'userId' });
+
+module.exports = { Order, OrderItem };

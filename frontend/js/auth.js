@@ -76,12 +76,17 @@ function login(email, password) {
         return response.json();
     })
     .then(data => {
-    if (!data || !data.token || !data.user) {
+    if (!data || !data.token) {
         throw new Error('Invalid response format from server');
     }
     
+    // Store token
     localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    
+    // Store user data (removing the token property as it's redundant)
+    const userData = {...data};
+    delete userData.token;
+    localStorage.setItem('user', JSON.stringify(userData));
         
         showMessage('login-message', 'Login successful! Redirecting...', 'success');
         

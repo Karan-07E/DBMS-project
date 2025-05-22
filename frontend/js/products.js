@@ -46,9 +46,15 @@ function loadProducts() {
             }
             return response.json();
         })
-        .then(products => {
+        .then(data => {
             // Clear the product grid
             productGrid.innerHTML = '';
+            
+            // Add debug info
+            console.log('Response from API:', data);
+            
+            // Extract products from the response (API returns {products, page, pages, totalProducts})
+            const products = data.products || [];
             
             // Check if we have any products
             if (products.length === 0) {
@@ -68,8 +74,8 @@ function loadProducts() {
                     <h3>${product.name}</h3>
                     <p class="product-price">${formatPrice(product.price)}</p>
                     <p class="product-description">${product.description.substring(0, 80)}${product.description.length > 80 ? '...' : ''}</p>
-                    <button class="add-to-cart-btn" data-id="${product._id}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
-                    <a href="product-detail.html?id=${product._id}" class="view-details-btn">View Details</a>
+                    <button class="add-to-cart-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+                    <a href="product-detail.html?id=${product.id}" class="view-details-btn">View Details</a>
                 `;
                 
                 productGrid.appendChild(productCard);
@@ -180,11 +186,10 @@ function updateCartCount() {
     });
 }
 
-// Helper function to check if a string is a valid MongoDB ObjectId
+// Helper function to check if a string is a valid MySQL ID
 function isValidObjectId(id) {
-    // MongoDB ObjectId is a 24-character hex string
-    const objectIdPattern = /^[0-9a-fA-F]{24}$/;
-    return objectIdPattern.test(id);
+    // MySQL ID is typically a positive integer
+    return !isNaN(id) && parseInt(id) > 0;
 }
 
 // Load single product detail
@@ -199,7 +204,7 @@ function loadProductDetail(productId) {
     // Show loading message
     productDetail.innerHTML = '<div class="loading">Loading product details...</div>';
     
-    // Check if the ID is a valid MongoDB ObjectId
+    // Check if the ID is a valid MySQL ID (positive integer)
     if (!isValidObjectId(productId)) {
         console.error('Invalid product ID format:', productId);
         productDetail.innerHTML = '<div class="error-message">Invalid product ID format. Please return to the <a href="index.html">home page</a> and try again.</div>';
@@ -243,7 +248,7 @@ function displayProductDetail(product, container) {
             <p class="product-description">${product.description}</p>
             <div class="product-actions">
                 <input type="number" id="quantity" min="1" value="1">
-                <button id="add-to-cart-btn" class="add-to-cart-btn" data-id="${product._id}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+                <button id="add-to-cart-btn" class="add-to-cart-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
             </div>
         </div>
     `;

@@ -45,7 +45,7 @@ function loadOrders() {
     ordersContainer.innerHTML = '<div class="loading">Loading your orders...</div>';
     
     // Fetch orders from API
-    fetch('/api/orders/my-orders', {
+    fetch('/api/orders/myorders', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -104,14 +104,14 @@ function createOrderElement(order) {
     
     orderElement.innerHTML = `
         <div class="order-header">
-            <div class="order-id">Order #${order._id.substring(0, 8)}...</div>
+            <div class="order-id">Order #${order.id}</div>
             <div class="order-status ${statusClass}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</div>
         </div>
         <div class="order-details">
             <div class="order-date">Placed on ${orderDate.toLocaleDateString()} at ${orderDate.toLocaleTimeString()}</div>
             <div class="order-summary">
                 <div class="order-items-count">${totalItems} item${totalItems !== 1 ? 's' : ''}</div>
-                <div class="order-total">Total: ${formatPrice(order.total)}</div>
+                <div class="order-total">Total: ${formatPrice(order.totalPrice || order.total || 0)}</div>
             </div>
         </div>
         <div class="order-items">
@@ -130,7 +130,7 @@ function createOrderElement(order) {
             `).join('')}
         </div>
         <div class="order-actions">
-            <a href="order-confirmation.html?id=${order._id}" class="btn btn-sm">View Details</a>
+            <a href="order-confirmation.html?id=${order.id}" class="btn btn-sm">View Details</a>
         </div>
     `;
     
