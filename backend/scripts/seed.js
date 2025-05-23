@@ -27,60 +27,60 @@ const users = [
 
 const products = [
   {
-    name: 'Apple iPhone 14',
-    description: 'Latest iPhone model with improved camera, performance, and battery life.',
-    price: 999.99,
+    name: 'Apple Watch series 7',
+    description: 'Latest apple watch with improved stats, performance, and battery life.',
+    price: 199.99,
     image: '/images/apple.webp',
     stock: 15
   },
   {
-    name: 'Carbon Fiber Wallet',
-    description: 'Slim RFID-blocking carbon fiber wallet with minimalist design.',
-    price: 49.99,
+    name: 'Carbon Fiber Cap',
+    description: 'carbon fiber cap with minimalist design.',
+    price: 4999.99,
     image: '/images/carbon.jpeg',
     stock: 30
   },
   {
-    name: 'Gaming Console - GTA Bundle',
-    description: 'Next-gen gaming console with GTA game bundle and extra controller.',
-    price: 599.99,
+    name: 'GTA V - XBOX',
+    description: 'Next-gen gaming via Xbox with GTA V bundle.',
+    price: 499.99,
     image: '/images/gta.jpg',
     stock: 10
   },
   {
-    name: 'BMW M5 Model Car',
-    description: 'Detailed 1:18 scale model of the BMW M5 competition sports sedan.',
-    price: 129.99,
+    name: 'ipad pro M5 gen',
+    description: 'an M5 powered chip in an ipad to run smoothly.',
+    price: 1499.99,
     image: '/images/m5.jpg',
     stock: 20
   },
   {
-    name: 'MacBook Pro M2',
-    description: 'Apple MacBook Pro with M2 chip, 16GB RAM and 512GB SSD.',
-    price: 1499.99,
+    name: 'MacBook Air M2',
+    description: 'Apple MacBook Air with M2 chip, 16GB RAM and 512GB SSD.',
+    price: 1999.99,
     image: '/images/mac.avif',
     stock: 12
   },
   {
     name: 'Nike Air Jordan',
     description: 'Classic Nike Air Jordan sneakers with modern comfort features.',
-    price: 179.99,
+    price: 1799.99,
     image: '/images/nike.webp',
     stock: 25
   },
   {
-    name: 'Travel Package - Europe',
-    description: 'All-inclusive European vacation package with flights and accommodations.',
-    price: 2999.99,
+    name: 'Emirates Airlines Toy Plane',
+    description: 'Toy Plane :) for kids with realistic design and features.',
+    price: 99.99,
     image: '/images/plane.jpeg',
-    stock: 5
+    stock: 50
   },
   {
-    name: 'Smart Watch Pro',
-    description: 'Advanced smartwatch with health tracking, GPS, and waterproof design.',
-    price: 249.99,
+    name: 'Jacob & Co. Watch',
+    description: 'Luxurious Watch themed Exclusively on RamJanmabhoomi edition.',
+    price: 199999.99,
     image: '/images/watch.avif',
-    stock: 18
+    stock: 2
   }
 ];
 
